@@ -1,0 +1,163 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h4 class="mb-0">
+            <i class="bi bi-person-plus"></i> Inscription {{ role  }}
+          </h4>
+        </div>
+
+        <div class="card-body p-4">
+
+          <div *ngIf="errorMsg" class="alert alert-danger text-center">
+            {{ errorMsg }}
+          </div>
+
+          <form *ngIf="signupForm" [formGroup]="signupForm" (ngSubmit)="inscription()">
+
+            <!-- ================= INFOS PERSONNELLES ================= -->
+
+            <h5 class="text-primary mb-3">Informations personnelles</h5>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Prénom</label>
+                <input type="text" class="form-control"
+                  formControlName="firstName"
+                  placeholder="Entrez votre prénom"
+                  [class.is-invalid]="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched">
+                <div class="invalid-feedback">
+                  Minimum 3 caractères requis.
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Nom</label>
+                <input type="text" class="form-control"
+                  formControlName="lastName"
+                  placeholder="Entrez votre nom"
+                  [class.is-invalid]="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched">
+                <div class="invalid-feedback">
+                  Minimum 3 caractères requis.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control"
+                formControlName="email"
+                placeholder="example@email.com"
+                [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+              <div class="invalid-feedback">
+                Email invalide.
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Téléphone</label>
+                <input type="tel" class="form-control"
+                  formControlName="phone"
+                  placeholder="22 000 000">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Adresse</label>
+                <input type="text" class="form-control"
+                  formControlName="address"
+                  placeholder="Votre adresse complète">
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- ================= SECURITE ================= -->
+
+            <h5 class="text-primary mb-3">Sécurité</h5>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Mot de passe</label>
+                <input type="password"
+                  class="form-control"
+                  formControlName="password">
+              </div>
+
+             
+            </div>
+
+            <hr>
+
+            <!-- ================= ROLE SPECIFIQUE ================= -->
+
+            <div *ngIf="role == 'teacher'">
+              <h5 class="text-primary mb-3">Informations Enseignant</h5>
+
+              <div class="form-group">
+                <label>Spécialité</label>
+                <input type="text"
+                  class="form-control"
+                  formControlName="specialty" 
+                  placeholder="Mathématiques, Physique..."
+                  [class.is-invalid]="signupForm.get('specialty')?.invalid && signupForm.get('specialty')?.touched">
+                <div class="invalid-feedback">
+                  La spécialité est requise.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>CV (PDF)</label>
+                <input type="file"
+                  class="form-control-file"
+                  accept="application/pdf"
+                  (change)="onFileSelect($event)">
+              </div>
+            </div>
+
+            <div *ngIf="role == 'student'">
+              <h5 class="text-primary mb-3">Informations Étudiant</h5>
+
+              <div class="form-group">
+                <label>Photo de profil</label>
+                <input type="file"
+                  class="form-control-file"
+                  accept="image/png, image/jpeg"
+                  (change)="onFileSelect($event)">
+              </div>
+            </div>
+
+            <div *ngIf="role == 'parent'">
+              <h5 class="text-primary mb-3">Informations Parent</h5>
+
+              <div class="form-group">
+                <label>Téléphone de l’enfant</label>
+                <input type="tel"
+                  class="form-control"
+                  formControlName="childPhone"
+                  [class.is-invalid]="signupForm.get('childPhone')?.invalid && signupForm.get('childPhone')?.touched">
+                <div class="invalid-feedback">
+                  Le téléphone de l'enfant est requis.
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= BUTTON ================= -->
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary px-5">
+                <i class="bi bi-check-circle"></i>
+                S'inscrire
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
