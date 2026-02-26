@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const userRoutes = require('./routes/user-routes');
-
+const coursRoutes = require('./routes/cours-routes');
 const app = express();
 
 // Connect to MongoDB (Adjust database name 'educationDB' as needed)
@@ -36,5 +36,7 @@ app.use((req, res, next) => {
 // Static access to images and Routes
 app.use('/images', express.static(path.join('backend/uploads')));
 app.use('/users', userRoutes);
+app.use('/cours', coursRoutes);
+
 
 module.exports = app;

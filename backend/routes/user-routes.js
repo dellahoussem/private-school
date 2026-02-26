@@ -67,10 +67,12 @@ router.post("/signup", multer({ storage: storage }).single("img"), (req, res) =>
             const url = req.protocol + "://" + req.get("host") + "/images/" + req.file.filename;
             if (req.body.role === 'teacher') {
               req.body.cv = url;
+              req.body.etat = 'en-attente';
             } else if (req.body.role === 'student') {
               req.body.photo = url;
             }
           }
+          
           const user = new User(req.body);
           user.save().then(() => {
             res.json({ msg: "0" });
@@ -90,10 +92,16 @@ router.post("/login", (req, res) => {
     if (!user) {
       res.json({ msg: "1" }); // User not found
     } else {
+      if (user.etat === 'en-attente') {
+        return res.json({ msg: "5" }); // Account is pending activation
+      }
+
       bcrypt.compare(req.body.password, user.password).then((result) => {
         if (!result) {
           res.json({ msg: "1" }); // Password mismatch
-        } else {
+        } 
+       
+        else {
           const token = jwt.sign({
             id: user._id,
             role: user.role,
@@ -107,6 +115,49 @@ router.post("/login", (req, res) => {
       });
     }
   });
+});
+
+// GET users by role
+router.get('/:role', async (req, res) => {
+  try {
+    const users = await User.find({ role: req.params.role });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+// delete user
+router.delete("/:id", (req, res) => {
+    console.log("business logic : delete matche by id");
+
+    let userId = req.params.id;
+    console.log("here is matcheId", userId);
+
+
+
+    User.deleteOne({ _id: userId }).then((msg) => {
+        console.log("hehe id delete response from users collection", msg);
+        (msg.deletedCount == 1) ?
+            res.json({ message: "user deleted with success", isDeleted: true }) :
+            res.json({ message: "user is not deleted", isDeleted: false });
+    });
+
+
+});
+// activer / desactiver ==> user
+router.patch('/status/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    user.etat = user.etat === 'active' ? 'en-attente' : 'active';
+
+    await user.save();
+
+    res.json({ message: "Status updated", status: user.etat});
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // make router exportable

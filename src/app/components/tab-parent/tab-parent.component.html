@@ -1,0 +1,25 @@
+<p> parents</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let parent of userTab">
+        <td>{{ parent.firstName }} {{ parent.lastName }}</td>
+        <td>{{ parent.email }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm"
+                  (click)="deleteUser(parent._id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

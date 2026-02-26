@@ -1,0 +1,45 @@
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h4 class="logo">School Admin</h4>
+
+    <ul class="menu">
+      <li (click)="selectTab('student')" 
+          [class.active]="selectedTab === 'student'">
+        <i class="bi bi-mortarboard"></i> Students
+      </li>
+
+      <li (click)="selectTab('teacher')" 
+          [class.active]="selectedTab === 'teacher'">
+        <i class="bi bi-person-workspace"></i> Teachers
+      </li>
+
+      <li (click)="selectTab('parent')" 
+          [class.active]="selectedTab === 'parent'">
+        <i class="bi bi-people"></i> Parents
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    
+    <div class="content-header">
+      <h2>Users Management</h2>
+      
+    </div>
+
+    <div class="card custom-card">
+      <div class="card-body">
+
+        <app-tab-student *ngIf="selectedTab === 'student'"></app-tab-student>
+        <app-tab-teacher *ngIf="selectedTab === 'teacher'"></app-tab-teacher>
+        <app-tab-parent *ngIf="selectedTab === 'parent'"></app-tab-parent>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

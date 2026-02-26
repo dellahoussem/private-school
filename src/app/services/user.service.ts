@@ -32,4 +32,17 @@ constructor(private httpClient: HttpClient) { }
 
    }
 
+ // GET users by role
+ getUserByRole(role: string) {
+return this.httpClient.get< any[]>(this.userURL +"/"+role);  
+ }
+
+ deleteUser(id: string) {
+   return this.httpClient.delete<{ msg: string }>(`${this.userURL}/${id}`);
+ }
+
+ Status(id: string) {
+  return this.httpClient.patch<any>(`${this.userURL}/status/${id}`, {});
+}
+
 }

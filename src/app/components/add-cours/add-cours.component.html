@@ -1,0 +1,99 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h4 class="mb-0">Ajouter un Cours</h4>
+    </div>
+
+    <div class="card-body p-4">
+
+      <div *ngIf="msg" class="alert alert-info" role="alert">
+        {{ msg }}
+      </div>
+
+      <form [formGroup]="coursForm" (ngSubmit)="addCours()">
+
+        <div class="row g-3">
+
+          <!-- Nom -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Nom du cours</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="name"
+                   placeholder="Ex: Angular Débutant">
+
+            <div class="text-danger mt-1"
+                 *ngIf="coursForm.get('name')?.touched && coursForm.get('name')?.invalid">
+              Nom obligatoire (minimum 3 caractères)
+            </div>
+          </div>
+
+          <!-- Durée -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Durée (heures)</label>
+            <input type="number"
+                   class="form-control"
+                   formControlName="duration"
+                   placeholder="Ex: 40">
+
+            <div class="text-danger mt-1"
+                 *ngIf="coursForm.get('duration')?.touched && coursForm.get('duration')?.invalid">
+              Durée obligatoire (minimum 1h)
+            </div>
+          </div>
+
+          <!-- Date début -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Date début</label>
+            <input type="date"
+                   class="form-control"
+                   formControlName="startDate">
+
+            <div class="text-danger mt-1"
+                 *ngIf="coursForm.get('startDate')?.touched && coursForm.get('startDate')?.invalid">
+              Date obligatoire
+            </div>
+          </div>
+
+          <!-- Teacher -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Affecter à un Teacher</label><br>
+
+            <select class="form-select form-control" formControlName="teacherId">
+              <option value="">Choisir un teacher</option>
+              <option *ngFor="let teacher of teachers"
+                      [value]="teacher._id">
+                {{ teacher.firstName }} {{ teacher.lastName }}
+              </option>
+            </select>
+
+            <div class="text-danger mt-1"
+                 *ngIf="coursForm.get('teacherId')?.touched && coursForm.get('teacherId')?.invalid">
+              Sélection du teacher obligatoire
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="col-12">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control"
+                      rows="4"
+                      formControlName="description"
+                      placeholder="Description du cours..."></textarea>
+          </div>
+
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit"
+                  class="btn btn-primary px-4"
+                  [disabled]="coursForm.invalid">
+            Ajouter Cours
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

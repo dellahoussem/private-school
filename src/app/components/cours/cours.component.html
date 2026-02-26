@@ -1,0 +1,41 @@
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h4 class="logo">School Admin</h4>
+
+    <ul class="menu">
+      <li (click)="selectTab('list')" 
+          [class.active]="selectedTab === 'list'">
+        <i class="bi bi-list-ul"></i> Cours Liste
+      </li>
+
+      <li (click)="selectTab('add')" 
+          [class.active]="selectedTab === 'add'">
+        <i class="bi bi-plus-circle"></i> Ajouter Cours
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    
+    <div class="content-header">
+      <h2>Cours Management</h2>
+      <p class="text-muted">Gérer les cours facilement</p>
+    </div>
+
+    <div class="card custom-card">
+      <div class="card-body">
+
+        <app-tab-cours *ngIf="selectedTab === 'list'"> </app-tab-cours>
+
+        
+        <app-add-cours *ngIf="selectedTab === 'add'" ></app-add-cours>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

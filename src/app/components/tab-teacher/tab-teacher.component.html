@@ -1,0 +1,35 @@
+<p> teachers </p>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let teacher of userTab">
+        <td>{{ teacher.firstName }} {{ teacher.lastName }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>
+          <span class="badge" [ngClass]="teacher.etat === 'active' ? 'badge-success' : 'badge-secondary'">
+            {{ teacher.etat }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-sm" [ngClass]="teacher.etat === 'active' ? 'btn-warning' : 'btn-success'"
+            (click)="Status(teacher._id)">
+
+            {{ teacher.etat === 'active' ? 'en-attente' : 'Activer' }}
+          </button>
+          <button class="btn btn-danger btn-sm ml-2" (click)="deleteUser(teacher._id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

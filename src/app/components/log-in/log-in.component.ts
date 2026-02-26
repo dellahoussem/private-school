@@ -44,6 +44,8 @@ loginForm!: FormGroup;
           console.log("here is response after decodage", decoded);
           
           this.router.navigate([""]);
+        } else if (res.msg == "5") {
+          this.errorMsg = "Votre compte est en attente d'activation.";
         } else {
           this.errorMsg = "Veuillez vérifier votre email/mot de passe";
         }
