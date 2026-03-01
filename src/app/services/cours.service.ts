@@ -21,4 +21,25 @@ deleteCours(id: string) {
 getAllCours() {
     return this.httpClient.get<any[]>(this.coursURL+"/getAlleCours");
   }
+
+  getCoursById(id: string) {
+  return this.httpClient.get<any>(`${this.coursURL}/getCoursById/${id}`);
+}
+
+  // Affecter un student à un cours
+  affectStudent(coursId: string, studentId: string) {
+    return this.httpClient.put(`${this.coursURL}/affect-student/${coursId}`, { studentId });
+  }
+
+removeStudent(coursId: string, studentId: string) {
+  return this.httpClient.put(
+    `${this.coursURL}/remove-student/${coursId}`,
+    { studentId }
+  );
+}
+
+
+
+
+
 }

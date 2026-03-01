@@ -43,25 +43,19 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a routerLink="/" class="nav-item nav-link" routerLinkActive="active"
+                <a *ngIf="isloggedIn() && user.role!='teacher'" routerLink="/" class="nav-item nav-link" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">Home</a>
-                <a routerLink="/about" class="nav-item nav-link" routerLinkActive="active">About</a>
+
+                    <a *ngIf="isloggedIn() && user.role=='teacher'" routerLink="/teacher-dashboard" class="nav-item nav-link" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">Dashboard Teacher</a>
+               
                 <a *ngIf="isloggedIn() && user.role=='admin'" routerLink="/users" class="nav-item nav-link"
                     routerLinkActive="active">Users</a>
 
                     <a *ngIf="isloggedIn() && user.role=='admin'" routerLink="/cours" class="nav-item nav-link"
                     routerLinkActive="active">Cours</a>
 
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu m-0">
-                        <a routerLink="" class="dropdown-item">Course Detail</a>
-                        <a routerLink="" class="dropdown-item">Our Features</a>
-                        <a routerLink="" class="dropdown-item">Instructors</a>
-                        <a routerLink="" class="dropdown-item">Testimonial</a>
-                    </div>
-                </div>
-                <a routerLink="/contact" class="nav-item nav-link" routerLinkActive="active">Contact</a>
+                
             </div>
             <div class="nav-item dropdown">
                 <a *ngIf="!isloggedIn()" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign-Up</a>

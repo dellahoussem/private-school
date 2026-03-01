@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const userRoutes = require('./routes/user-routes');
 const coursRoutes = require('./routes/cours-routes');
+const teacherRoutes = require('./routes/teacher-routes');
+
 const app = express();
 
 // Connect to MongoDB (Adjust database name 'educationDB' as needed)
@@ -37,6 +39,9 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join('backend/uploads')));
 app.use('/users', userRoutes);
 app.use('/cours', coursRoutes);
+app.use('/teacher', teacherRoutes);
+
+
 
 
 module.exports = app;

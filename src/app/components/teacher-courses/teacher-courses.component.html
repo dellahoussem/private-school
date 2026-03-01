@@ -1,0 +1,74 @@
+<div class="container mt-5">
+
+  <h3 class="mb-4 text-primary">
+    📚 {{ cours?.name }} - Students
+  </h3>
+
+  <!-- MOYENNE -->
+ 
+
+  <div class="card mb-3 shadow-sm border-0"
+       *ngFor="let student of cours?.students">
+
+    <div class="card-body">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-1">
+            {{ student.firstName }} {{ student.lastName }}
+          </h5>
+          <small class="text-muted">{{ student.email }}</small>
+        </div>
+
+        <!-- BADGE -->
+        <span class="badge"
+              [ngClass]="student.note != null ? 
+                        'badge-success' : 'badge-danger'">
+          {{ student.note != null ? 'Noté' : 'Non noté' }}
+        </span>
+      </div>
+
+      <hr>
+
+      <!-- NOTE -->
+      <div class="form-group">
+  <label>Note /20</label>
+  <input type="number"
+         class="form-control"
+         min="0"
+         max="20"
+         required
+         #note="ngModel"
+         [(ngModel)]="student.note">
+
+  <small class="text-danger" *ngIf="note.invalid && note.touched">
+    ⚠️ Note obligatoire entre 0 et 20
+  </small>
+</div>
+
+      <!-- EVALUATION -->
+     <div class="form-group">
+  <label>Évaluation</label>
+  <textarea class="form-control"
+            rows="2"
+            required
+            #evaluation="ngModel"
+            [(ngModel)]="student.evaluation">
+  </textarea>
+
+  <small class="text-danger" *ngIf="evaluation.invalid && evaluation.touched">
+    ⚠️ Évaluation obligatoire
+  </small>
+</div>
+
+
+    <button class="btn btn-success btn-sm mt-2"
+        [disabled]="!student.note || !student.evaluation || student.note < 0 || student.note > 20"
+        (click)="saveGrade(student)">
+  💾 Enregistrer
+</button>
+
+    </div>
+  </div>
+
+</div>

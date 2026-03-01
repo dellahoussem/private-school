@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { CoursService } from '../../services/cours.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab-cours',
   imports: [NgFor, CommonModule],
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TabCoursComponent {
 coursList: any[] = [];
-constructor(private coursService: CoursService) { }
+constructor(private coursService: CoursService,private router: Router) { }
 
  loadCours() {
     this.coursService.getAllCours().subscribe(
@@ -39,4 +40,13 @@ deleteCours(id: string) {
     );
   }
 }
+
+
+AffecterStudent(id: string) {
+  this.router.navigate(['affectStudent', id]);
+}
+
+editCours(id: string) {
+}
+
 }

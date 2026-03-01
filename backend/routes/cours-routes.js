@@ -41,5 +41,47 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+
+
+router.get('/getCoursById/:id', async (req, res) => {
+  try {
+    const cours = await Cours.findById(req.params.id)
+      .populate('teacherId', 'firstName lastName email')
+      .populate('studentsId', 'firstName lastName email');
+    res.json(cours);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+router.put("/affect-student/:id", async (req, res) => {
+  try {
+    const updatedCours = await Cours.findByIdAndUpdate(
+      req.params.id,
+      { $addToSet: { studentsId: req.body.studentId } }, // empêche doublons
+      { new: true }
+    ).populate("studentsId", "firstName lastName email");
+    res.json({ msg: "Student affecté avec succès", cours: updatedCours });
+  } catch (err) {
+    res.status(500).json({ msg: "Erreur serveur", error: err.message });
+  }
+});
+
+// Retirer un student d’un cours
+router.put("/remove-student/:id", async (req, res) => {
+  try {
+    const updatedCours = await Cours.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { studentsId: req.body.studentId } }, // retire l'id
+      { new: true }
+    ).populate("studentsId", "firstName lastName email");
+
+    res.json({ msg: "Student retiré avec succès", cours: updatedCours });
+  } catch (err) {
+    res.status(500).json({ msg: "Erreur serveur", error: err.message });
+  }
+});
+
 // make router exportable
 module.exports = router;

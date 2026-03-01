@@ -1,28 +1,68 @@
-<div class="container mt-4">
-  <h2 class="mb-3">Liste des Cours</h2>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Liste des Cours</h4>
+    </div>
 
-  <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>Nom</th>
-        
-        <th>Durée (h)</th>
-        <th>Date de début</th>
-        <th>Teacher</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cours of coursList">
-        <td>{{ cours.name }}</td>
-        
-        <td>{{ cours.duration }}</td>
-        <td>{{ cours.startDate | date:'dd/MM/yyyy' }}</td>
-        <td>{{ cours.teacherId?.firstName }} {{ cours.teacherId?.lastName }}</td>
-        <td>
-          <button class="btn btn-sm btn-danger" (click)="deleteCours(cours._id)">Supprimer</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th>Nom</th>
+              <th>Durée</th>
+              <th>Date de début</th>
+              <th>Teacher</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cours of coursList">
+              <td class="font-weight-bold">{{ cours.name }}</td>
+
+              <td>
+                <span class="badge badge-info">
+                  {{ cours.duration }} h
+                </span>
+              </td>
+
+              <td>
+                {{ cours.startDate | date:'dd/MM/yyyy' }}
+              </td>
+
+              <td>
+                <span class="text-secondary">
+                  {{ cours.teacherId?.firstName }}
+                  {{ cours.teacherId?.lastName }}
+                </span>
+              </td>
+
+              <td>
+                <button class="btn btn-sm btn-success mr-2" (click)="AffecterStudent(cours._id)">
+                  <i class="fa fa-user-plus"></i> Ajouter
+                </button>
+
+                <button class="btn btn-sm btn-warning mr-2" (click)="editCours(cours._id)">
+                  <i class="fa fa-edit"></i> Modifier
+                </button>
+
+                <button class="btn btn-sm btn-danger" (click)="deleteCours(cours._id)">
+                  <i class="fa fa-trash"></i> Supprimer
+                </button>
+              </td>
+
+            </tr>
+
+            <tr *ngIf="coursList.length === 0">
+              <td colspan="5" class="text-muted">
+                Aucun cours disponible
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
