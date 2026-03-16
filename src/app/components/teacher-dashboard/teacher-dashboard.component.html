@@ -29,8 +29,7 @@
 
   <!-- ➕ ADD COURSE -->
   <div class="mb-4 text-right">
-    <button class="btn btn-primary"
-            routerLink="/add-course">
+    <button class="btn btn-primary" routerLink="/add-course">
       + Ajouter Cours
     </button>
   </div>
@@ -38,50 +37,10 @@
   <!-- 📚 LIST COURSES -->
   <div class="row">
 
-    <div class="col-md-4 mb-4"
-         *ngFor="let course of courses">
-
-      <div class="card shadow h-100 border-0">
-        <div class="card-body">
-
-          <h5 class="font-weight-bold">
-            {{ course.name }}
-          </h5>
-
-          <p class="text-muted">
-            {{ course.description }}
-          </p>
-
-          <hr>
-
-          <p>
-            👥 Students :
-            <strong>{{ course.studentsId.length }}</strong>
-          </p>
-
-          <div class="d-flex justify-content-between">
-
-            <button class="btn btn-sm btn-info"
-                    [routerLink]="['/teacher-courses', course._id]">
-              Voir
-            </button>
-
-            <button class="btn btn-sm btn-warning"
-                    [routerLink]="['/edit-course', course._id]">
-              Modifier
-            </button>
-
-            <button class="btn btn-sm btn-danger"
-                    (click)="deleteCourse(course._id)">
-              Supprimer
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
+   <app-cours-teacher
+  [courses]="courses"
+  (deleteCourseEvent)="deleteCourse($event)">
+</app-cours-teacher>
 
   </div>
 

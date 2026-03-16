@@ -45,6 +45,9 @@ export class LogInComponent {
           if (decoded.role === 'teacher') {
             this.router.navigate(['/teacher-dashboard']);
           }
+          else if (decoded.role === 'student') {
+            this.router.navigate(['/student-dashboard']);
+          }
           else {
         this.router.navigate(['']);
       }

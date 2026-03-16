@@ -5,6 +5,7 @@ const path = require('path');
 const userRoutes = require('./routes/user-routes');
 const coursRoutes = require('./routes/cours-routes');
 const teacherRoutes = require('./routes/teacher-routes');
+const studentRoutes = require('./routes/student-routes');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/images', express.static(path.join('backend/uploads')));
 app.use('/users', userRoutes);
 app.use('/cours', coursRoutes);
 app.use('/teacher', teacherRoutes);
+app.use('/student', studentRoutes);
 
 
 

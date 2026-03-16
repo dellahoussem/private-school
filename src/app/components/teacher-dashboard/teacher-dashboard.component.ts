@@ -5,10 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { TeacherService } from '../../services/teacher.service';
 import { jwtDecode } from 'jwt-decode';
+import { CoursTeacherComponent } from "../cours-teacher/cours-teacher.component";
 
 @Component({
   selector: 'app-teacher-dashboard',
-  imports: [RouterLink,NgFor],
+  imports: [RouterLink, NgFor, CoursTeacherComponent],
   templateUrl: './teacher-dashboard.component.html',
   styleUrl: './teacher-dashboard.component.css'
 })
@@ -44,10 +45,10 @@ ngOnInit(): void {
   }
 
 deleteCourse(id: string) {
-    this.coursService.deleteCours(id).subscribe(() => {
-      this.getMyCourses();
-    });
-  }
+  this.coursService.deleteCours(id).subscribe(() => {
+    this.courses = this.courses.filter(c => c._id !== id);
+  });
+}
 
 
 

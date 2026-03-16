@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="card shadow border-0" *ngIf="course">
+
+    <div class="card-body">
+
+      <h3 class="text-primary">{{ course.name }}</h3>
+      <p class="text-muted">{{ course.description }}</p>
+
+      <hr>
+
+      <h5>📊 Note</h5>
+      <span class="badge bg-success fs-6">
+        {{ note ?? 'Non disponible' }}
+      </span>
+
+      <hr>
+
+      <h5>📝 Évaluation du teacher</h5>
+      <div class="alert alert-info mt-2">
+        {{ evaluation ?? 'Pas encore d\'évaluation' }}
+      </div>
+
+      <button class="btn btn-secondary mt-3" [routerLink]="['/student-dashboard']">
+        Retour
+      </button>
+
+    </div>
+  </div>
+
+</div>

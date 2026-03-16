@@ -1,0 +1,33 @@
+<div class="container mt-5">
+
+  <h3 class="mb-4 text-center">🎓 My Courses</h3>
+
+  <div class="row">
+
+    <div class="col-md-4 mb-4"
+         *ngFor="let course of courses">
+
+      <div class="card shadow h-100 border-0">
+
+        <div class="card-body d-flex flex-column">
+
+          <h5>{{ course.name }}</h5>
+
+          <p class="text-muted flex-grow-1">
+            {{ course.description }}
+          </p>
+
+          <button class="btn btn-outline-primary btn-sm mt-3"
+                  [routerLink]="['/student-course', course._id]">
+            👁 Voir Évaluation
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

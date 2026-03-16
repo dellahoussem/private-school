@@ -43,11 +43,15 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a *ngIf="isloggedIn() && user.role!='teacher'" routerLink="/" class="nav-item nav-link" routerLinkActive="active"
+                <a *ngIf="isloggedIn() && user.role!='teacher' && user.role!='admin' && user.role!='parent' && user.role!='student'"
+                    routerLink="/" class="nav-item nav-link" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">Home</a>
 
                     <a *ngIf="isloggedIn() && user.role=='teacher'" routerLink="/teacher-dashboard" class="nav-item nav-link" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">Dashboard Teacher</a>
+
+                    <a *ngIf="isloggedIn() && user.role=='student'" routerLink="/student-dashboard" class="nav-item nav-link" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">Dashboard Student</a>
                
                 <a *ngIf="isloggedIn() && user.role=='admin'" routerLink="/users" class="nav-item nav-link"
                     routerLinkActive="active">Users</a>

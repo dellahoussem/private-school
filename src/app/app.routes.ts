@@ -8,6 +8,8 @@ import { AffectStudentComponent } from './components/affect-student/affect-stude
 import { TeacherDashboardComponent } from './components/teacher-dashboard/teacher-dashboard.component';
 import { TeacherAddCourseComponent } from './components/teacher-add-course/teacher-add-course.component';
 import { TeacherCoursesComponent } from './components/teacher-courses/teacher-courses.component';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
+import { StudentCourseComponent } from './components/student-course/student-course.component';
 
 export const routes: Routes = [
      { path: "", component: HomeComponent },
@@ -20,6 +22,8 @@ export const routes: Routes = [
     { path: "teacher-dashboard", component: TeacherDashboardComponent},
     { path: "add-course", component: TeacherAddCourseComponent},
     { path: "teacher-courses/:id", component: TeacherCoursesComponent},
+    { path: "student-dashboard", component:StudentDashboardComponent },
+    { path: "student-course/:id", component : StudentCourseComponent },
   
   
    

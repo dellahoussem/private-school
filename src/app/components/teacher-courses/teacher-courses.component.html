@@ -1,74 +1,69 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="cours">
 
-  <h3 class="mb-4 text-primary">
-    📚 {{ cours?.name }} - Students
-  </h3>
+  <h3 class="mb-4">{{ cours.name }} - Students</h3>
 
-  <!-- MOYENNE -->
- 
+  <!-- ====== Students non notés ====== -->
+  <div *ngIf="getNotGradedStudents().length > 0">
+    <h5 class="text-primary mb-3">Students à noter</h5>
+    <div class="card mb-3 shadow" *ngFor="let student of getNotGradedStudents()">
+      <div class="card-body">
 
-  <div class="card mb-3 shadow-sm border-0"
-       *ngFor="let student of cours?.students">
+        <h5>{{ student.firstName }} {{ student.lastName }}</h5>
+        <p class="text-muted">{{ student.email }}</p>
 
-    <div class="card-body">
+        <!-- Formulaire de note -->
+        <form [formGroup]="gradeForms[student._id]" (ngSubmit)="saveGrade(student)">
+          <div class="form-group">
+            <label>Note /20</label>
+            <input type="number"
+                   class="form-control"
+                   formControlName="note">
+            <div *ngIf="gradeForms[student._id].controls['note'].invalid &&
+                        gradeForms[student._id].controls['note'].touched"
+                 class="text-danger">
+              Veuillez saisir une note valide (0-20)
+            </div>
+          </div>
 
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <h5 class="mb-1">
-            {{ student.firstName }} {{ student.lastName }}
-          </h5>
-          <small class="text-muted">{{ student.email }}</small>
-        </div>
+          <div class="form-group">
+            <label>Évaluation</label>
+            <textarea class="form-control"
+                      rows="3"
+                      formControlName="evaluation"></textarea>
+            <div *ngIf="gradeForms[student._id].controls['evaluation'].invalid &&
+                        gradeForms[student._id].controls['evaluation'].touched"
+                 class="text-danger">
+              L'évaluation doit comporter au moins 5 caractères
+            </div>
+          </div>
 
-        <!-- BADGE -->
-        <span class="badge"
-              [ngClass]="student.note != null ? 
-                        'badge-success' : 'badge-danger'">
-          {{ student.note != null ? 'Noté' : 'Non noté' }}
-        </span>
+          <button type="submit" class="btn btn-success mt-2">
+            Enregistrer
+          </button>
+        </form>
+
       </div>
-
-      <hr>
-
-      <!-- NOTE -->
-      <div class="form-group">
-  <label>Note /20</label>
-  <input type="number"
-         class="form-control"
-         min="0"
-         max="20"
-         required
-         #note="ngModel"
-         [(ngModel)]="student.note">
-
-  <small class="text-danger" *ngIf="note.invalid && note.touched">
-    ⚠️ Note obligatoire entre 0 et 20
-  </small>
-</div>
-
-      <!-- EVALUATION -->
-     <div class="form-group">
-  <label>Évaluation</label>
-  <textarea class="form-control"
-            rows="2"
-            required
-            #evaluation="ngModel"
-            [(ngModel)]="student.evaluation">
-  </textarea>
-
-  <small class="text-danger" *ngIf="evaluation.invalid && evaluation.touched">
-    ⚠️ Évaluation obligatoire
-  </small>
-</div>
-
-
-    <button class="btn btn-success btn-sm mt-2"
-        [disabled]="!student.note || !student.evaluation || student.note < 0 || student.note > 20"
-        (click)="saveGrade(student)">
-  💾 Enregistrer
-</button>
-
     </div>
+  </div>
+
+  <hr *ngIf="getNotGradedStudents().length > 0 && getGradedStudents().length > 0">
+
+  <!-- ====== Students déjà notés ====== -->
+  <div *ngIf="getGradedStudents().length > 0">
+    <h5 class="text-success mb-3">Students notés</h5>
+    <div class="card mb-3 shadow" *ngFor="let student of getGradedStudents()">
+      <div class="card-body">
+        <h5>{{ student.firstName }} {{ student.lastName }}</h5>
+        <p class="text-muted">{{ student.email }}</p>
+        <p><strong>Note:</strong> {{ student.note }}/20</p>
+        <p><strong>Évaluation:</strong> {{ student.evaluation }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun student -->
+  <div *ngIf="!cours.students || cours.students.length === 0" class="alert alert-info">
+    Aucun student affecté à ce cours.
   </div>
 
 </div>
